@@ -56,9 +56,10 @@ contract KipuBank {
      */
     function addAmount() external payable VerifyMinimumDeposit{
         address sender = msg.sender;
-        if ((balance[sender] += msg.value) > BANKCAP) revert ExceededGlobalLimit();
+        uint256 amount = uint256(msg.value);
+        if ((balance[sender] += amount) > BANKCAP) revert ExceededGlobalLimit();
         ++totalDeposits;
-        emit Deposited(sender, msg.value); /// evento para web3
+        emit Deposited(sender, amount); /// evento para web3
     }
 
     /** 
